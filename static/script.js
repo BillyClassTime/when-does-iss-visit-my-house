@@ -208,6 +208,40 @@ async function getClosestPass() {
 }
 
 
+let currentOrbitLine = null; // Variable global para controlar la línea
+
+function drawOrbit(points) {
+    // TRUCO: Si ya existía una línea de órbita en el mapa, la borramos primero
+    if (currentOrbitLine) {
+        map.removeLayer(currentOrbitLine);
+    }
+
+    console.log("Raw points for orbit:", points);
+
+    // Convertimos los puntos de la API al formato de Leaflet [lat, lng]
+    // La API envía {lat, lon}, así que mapeamos a [p.lat, p.lon]
+    let path = points
+        .filter(p => {
+            const isValid = p.lat !== undefined && p.lon !== undefined && p.lat !== null && p.lon !== null;
+            if (!isValid) console.warn("Invalid point detected:", p);
+            return isValid;
+        })
+        .map(p => [p.lat, p.lon]);
+
+    console.log("Filtered path for Leaflet:", path);
+
+    if (path.length === 0) {
+        console.warn("No valid trajectory points to draw.");
+        return;
+    }
+
+    // Dibujamos la nueva línea y la guardamos en la variable
+    currentOrbitLine = L.polyline(path, { color: 'yellow', weight: 3 }).addTo(map);
+
+    // Ajustar mapa
+    map.fitBounds(currentOrbitLine.getBounds());
+}
+
 /* 
 ===========================
  ISS TRAJECTORY TO MY HOME
@@ -226,22 +260,10 @@ async function getTrajectory() {
         }
 
         // Normalizar longitudes para evitar saltos
-        const latlngs = normalizeTrajectory(data.points);
+        const normalizedPoints = normalizeTrajectory(data.points);
 
-        // Borrar trayectoria anterior
-        if (trajectoryLine) {
-            map.removeLayer(trajectoryLine);
-        }
-
-        // Dibujar polyline
-        trajectoryLine = L.polyline(latlngs, {
-            color: "yellow",
-            weight: 3,
-            opacity: 0.8
-        }).addTo(map);
-
-        // Ajustar mapa
-        map.fitBounds(trajectoryLine.getBounds());
+        // Usar la nueva función de dibujo
+        drawOrbit(normalizedPoints);
 
         result.innerHTML = `🛰 Trajectory loaded: ${data.points.length} points`;
 
@@ -251,12 +273,13 @@ async function getTrajectory() {
     }
 }
 
-
 function normalizeTrajectory(points) {
     const fixed = [];
     let prevLon = null;
 
     for (const p of points) {
+        // La estructura de puntos ahora es {lat, lon}
+        let lat = p.lat;
         let lon = p.lon;
 
         if (prevLon !== null) {
@@ -270,7 +293,7 @@ function normalizeTrajectory(points) {
             }
         }
 
-        fixed.push([p.lat, lon]);
+        fixed.push({lat: lat, lon: lon});
         prevLon = lon;
     }
 

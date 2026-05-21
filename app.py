@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 import requests
 import os
 from orbit_utils import get_iss_tle, teme_to_latlon, distance_km
@@ -233,7 +233,6 @@ def trajectory():
         if e == 0:
             lat, lon = teme_to_latlon(r)
             points.append({
-                "time": t.strftime("%Y-%m-%d %H:%M:%S"),
                 "lat": round(lat, 4),
                 "lon": round(lon, 4)
             })
@@ -244,11 +243,11 @@ def trajectory():
 
 
 # ===========================
-#  FAVICON
+#  ASSETS
 # ===========================
-@app.route('/favicon.ico')
-def favicon():
-    return app.send_static_file('favicon.ico')
+@app.route('/assets/<path:path>')
+def send_assets(path):
+    return send_from_directory('assets', path)
 
 
 if __name__ == "__main__":

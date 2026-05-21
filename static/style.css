@@ -18,18 +18,49 @@ body {
 /* HERO */
 
 .hero {
-    text-align: center;
+    background-color: #1a2436; /* Azul más claro para que no se "coma" a la ISS */
+    display: flex;
+    align-items: center;       /* Centra todo verticalmente */
+    justify-content: flex-start; /* Alinea los bloques al principio (izquierda) */
+    padding: 20px 40px;        /* Espacio interno para que no pegue a los bordes */
+    gap: 30px;                 /* Separación entre el botón Home y el bloque de la ISS */
     margin-bottom: 30px;
 }
 
-.hero h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
+/* El botón Home a la izquierda */
+.home-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: #1a2436;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    flex-shrink: 0;            /* Evita que el botón se encoja */
 }
 
+/* El nuevo contenedor que junta la ISS y el texto en horizontal */
+.logo-container {
+    display: flex;
+    align-items: center;       /* Centra la nave con el texto en horizontal */
+    gap: 20px;                 /* Espacio entre el dibujo y la frase */
+}
+
+/* Ajustes de la ISS gamberra */
+.logo {
+    max-width: 180px;          /* Ajusta este tamaño si quieres la ISS más grande o pequeña */
+    height: auto;
+}
+
+/* El texto de al lado */
 .subtitle {
-    color: #cbd5e1;
+    color: #ffffff;
     font-size: 1.1rem;
+    margin: 0;                 /* Quita márgenes rebeldes para que se alinee bien */
+    opacity: 0.9;              /* Un pelín elegante */
 }
 
 /* CARDS */
