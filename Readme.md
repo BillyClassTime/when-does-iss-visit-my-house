@@ -43,6 +43,20 @@ This project is set up as a split deployment:
 
 That means the browser-facing calls go through `/api/...`, while the Function forwards each request to the backend container.
 
+After creating or recreating the Static Web App, run the final setup script so the integrated Azure Function knows where the backend lives:
+
+```powershell
+.\final-setup-swa.ps1
+```
+
+The script configures this Static Web App app setting:
+
+```text
+BACKEND_API_URL=https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io
+```
+
+The GitHub Actions deploy token is stored separately as the repository secret `AZURE_STATIC_WEB_APPS_API_TOKEN`; that token deploys the files, but it does not configure app settings.
+
 ---
 
 ## 👁️ ISS Visibility: Can I see it from home?
@@ -216,4 +230,8 @@ This fun project would not have been the same without the following tools, which
 * ⚙️ **[ezgif.com](https://ezgif.com)** – For the optimization tools and the flawless conversion into an animated web format (GIF) whilst preserving quality.
 * 🪄 **[remove.bg](https://www.remove.bg)** – For its superb AI that stripped away the original background in seconds.
 * 🎨 **[Photopea](https://www.photopea.com)** – For providing a powerful, browser-based editor that let us trim the canvas and perform some DIY digital surgery.
+* 🧩 **Copilot in Edge** – For helping synthesize Scott Hanselman's video into useful implementation context.
+* 📝 **ChatGPT on the web** – For validating documentation details and commit-message wording.
+* 🛠️ **Codex CLI** – For helping with the trickier geolocation calculations and the final round of deployment and UX bug fixes.
+* ✨ **Gemini CLI** – For the early styling and layout work that helped shape the first version of the interface.
 ---

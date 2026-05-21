@@ -5,7 +5,13 @@ import azure.functions as func
 import requests
 
 
-BACKEND_BASE_URL = os.environ["BACKEND_API_URL"].rstrip("/")
+DEFAULT_BACKEND_API_URL = (
+    "https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io"
+)
+BACKEND_BASE_URL = os.environ.get(
+    "BACKEND_API_URL",
+    DEFAULT_BACKEND_API_URL,
+).rstrip("/")
 
 
 def _build_target_url(req: func.HttpRequest) -> str:

@@ -39,6 +39,12 @@ az staticwebapp appsettings set `
   --resource-group $RG_NAME `
   --setting-names BACKEND_API_URL=$BACKEND_URL
 
+$CONFIGURED_BACKEND_URL = az staticwebapp appsettings list `
+  --name $SWA_NAME `
+  --resource-group $RG_NAME `
+  --query "properties.BACKEND_API_URL" `
+  --output tsv
+
 $SWA_HOST = az staticwebapp show `
   --name $SWA_NAME `
   --resource-group $RG_NAME `
@@ -54,5 +60,5 @@ $SWA_TOKEN = az staticwebapp secrets list `
 Write-Host "✅ Configuración aplicada." -ForegroundColor Cyan
 Write-Host "   SWA: $SWA_NAME" -ForegroundColor White
 Write-Host "   URL: https://$SWA_HOST" -ForegroundColor White
-Write-Host "   BACKEND_API_URL: $BACKEND_URL" -ForegroundColor White
+Write-Host "   BACKEND_API_URL: $CONFIGURED_BACKEND_URL" -ForegroundColor White
 Write-Host "   GitHub secret AZURE_STATIC_WEB_APPS_API_TOKEN: $SWA_TOKEN" -ForegroundColor Yellow
