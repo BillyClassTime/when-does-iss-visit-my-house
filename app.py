@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 from math import sqrt, radians, sin, cos, atan2, degrees
 from cache_utils import load_cache, save_cache
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=".")
 
 @app.route("/")
 def index():
