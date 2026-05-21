@@ -22,7 +22,8 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/templates"     # Aquí es donde vive tu index.html principal
-          api_location: ""               # Vacío, el backend va por libre
-          output_location: "/"           # Raíz, para que busque estáticos desde arriba
-          skip_app_build: true           
+          app_location: "/"              # 🌟 Ahora busca el index.html en la raíz real
+          api_location: ""               
+          output_location: "/"           # Sube todo desde la raíz (incluyendo /static y /assets)
+          skip_app_build: true           # Evita que Oryx intente compilar Python
+          ###### ------------------------------------- ######
