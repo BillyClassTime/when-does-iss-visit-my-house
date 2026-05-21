@@ -74,7 +74,7 @@ function setHouse(lat, lon) {
 
 async function updateISSPosition() {
     try {
-        const response = await fetch("/get_iss_position");
+        const response = await fetch("/api/get_iss_position");
         const data = await response.json();
 
         if (data.error) {
@@ -154,7 +154,7 @@ async function getNextPass() {
     result.innerHTML = "🛰 Searching next ISS pass...";
 
     try {
-        const response = await fetch(`/iss-pass?lat=${lat}&lon=${lon}`);
+        const response = await fetch(`/api/iss-pass?lat=${lat}&lon=${lon}`);
         const data = await response.json();
 
         if (data.error) {
@@ -189,7 +189,7 @@ async function getClosestPass() {
     result.innerHTML = "🛰 Calculating closest ISS approach...";
 
     try {
-        const response = await fetch(`/closest-pass?lat=${lat}&lon=${lon}`);
+        const response = await fetch(`/api/closest-pass?lat=${lat}&lon=${lon}`);
         const data = await response.json();
 
         if (data.error) {
@@ -239,7 +239,7 @@ function drawOrbit(points) {
     currentOrbitLine = L.polyline(path, { color: 'yellow', weight: 3 }).addTo(map);
 
     // Ajustar mapa
-    map.fitBounds(currentOrbitLine.getBounds());
+    map.fitBounds(currentOrbitLine.getBounds(), { padding: [50, 50], animate: true, duration: 1.5 });
 }
 
 /* 
@@ -251,7 +251,7 @@ async function getTrajectory() {
     result.innerHTML = "🛰 Calculating ISS trajectory...";
 
     try {
-        const response = await fetch('/trajectory?minutes=90&step=60');
+        const response = await fetch('/api/trajectory?minutes=90&step=60');
         const data = await response.json();
 
         if (!data.points) {

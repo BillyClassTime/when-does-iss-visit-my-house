@@ -1,0 +1,17 @@
+{
+  "trailingSlash": "auto",
+  "routes": [
+    {
+      "route": "/api/*",
+      "allow": ["*"]
+    }
+  ],
+  "proxies": [
+    {
+      "route": "/api/*",
+      "backend": {
+        "endpoint": "https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io"
+      }
+    }
+  ]
+}

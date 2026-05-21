@@ -10,6 +10,12 @@ __pycache/
 *.dll
 *.so
 *.out
+*.db
+
+# Agent's folders
+.gemini
+.claude
+.codex
 
 # Carpeta de entornos virtuales
 **/env/

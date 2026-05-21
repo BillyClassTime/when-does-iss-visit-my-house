@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask_cors import CORS
 import requests
 import os
 from orbit_utils import get_iss_tle, teme_to_latlon, distance_km
@@ -8,6 +9,7 @@ from math import sqrt, radians, sin, cos, atan2, degrees
 from cache_utils import load_cache, save_cache
 
 app = Flask(__name__, template_folder=".")
+CORS(app)
 
 @app.route("/")
 def index():

@@ -1,0 +1,19 @@
+{
+  "routes": [
+    {
+      "route": "/api/*",
+      "allow": ["*"]
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html"
+  },
+  "proxies": [
+    {
+      "route": "/api/*",
+      "backend": {
+        "endpoint": "https://tu-container-app-xyz.azurecontainerapps.io"
+      }
+    }
+  ]
+}
