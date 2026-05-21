@@ -41,3 +41,16 @@ You can run this tiny tool locally using Docker or directly with Python.
    ```bash
    git clone [https://github.com/BillyClassTime/when-does-iss-visit-my-house.git](https://github.com/BillyClassTime/when-does-iss-visit-my-house.git)
    cd when-does-iss-visit-my-house
+
+
+---
+
+## 💙 Acknowledgements and Credits
+
+This fun project would not have been the same without the following tools, which helped to bring its visual identity to life:
+
+* 🎬 **[deevid.ai](https://deevid.ai)** – For generating the incredible video that brought our ISS into action.
+* 🤖 **Gemini (Google)** – For co-creating the initial illustration and artwork of our cheeky, rogue ISS.
+* ⚙️ **[ezgif.com](https://ezgif.com)** – For the optimization tools and the flawless conversion into an animated web format (GIF) whilst preserving quality.
+
+---
