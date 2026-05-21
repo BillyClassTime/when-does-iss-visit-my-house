@@ -28,7 +28,7 @@ What started as a quick 20-minute idea turned into a midnight coding session bec
 * **Orbital Engine:** Integrated with **SGP4** for high-precision mathematical orbital prediction.
 * **Frontend:** Clean, space-inspired dark UI built with Leaflet.js and raw CSS.
 * **APIs:** Open Notify API and WhereTheISS.at for real-time telemetry data sync.
-* **Azure Deployment:** Frontend on Azure Static Web Apps, backend on Azure Container Apps, connected through `staticwebapp.config.json`.
+* **Azure Deployment:** Frontend on Azure Static Web Apps, an Azure Function acts as a proxy, and the backend runs on Azure Container Apps.
 
 ---
 
@@ -37,10 +37,11 @@ What started as a quick 20-minute idea turned into a midnight coding session bec
 This project is set up as a split deployment:
 
 * The frontend is served from Azure Static Web Apps.
+* A tiny Azure Function under `api/` bridges the front-end calls to the backend container.
 * The backend runs as a Flask app inside Azure Container Apps.
-* `staticwebapp.config.json` exposes `/api/*` and proxies those requests to the backend container.
+* `staticwebapp.config.json` keeps the SPA routing clean and lets `/api/*` be handled by the Functions runtime.
 
-That means the browser-facing calls go through `/api/...`, while the backend can stay as a normal Flask app behind Azure.
+That means the browser-facing calls go through `/api/...`, while the Function forwards each request to the backend container.
 
 ---
 
@@ -115,6 +116,91 @@ Generates an array of geographical points mapping out the complete orbital path 
 
 ```bash
 curl "https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io/api/trajectory?minutes=90&step=60"
+```
+
+
+---
+
+## 🧪 Local Deployment Checks
+
+Use these checks to verify the three layers with the same `/api/*` route convention used by the deployed backend.
+
+### 1. Cloud Backend Directly
+
+```bash
+curl https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io/api/get_iss_position
+```
+
+The backend should return JSON with `latitude` and `longitude`.
+
+### 2. Flask Backend Locally
+
+From the repository root:
+
+```bash
+python app.py
+```
+
+Then test:
+
+```bash
+curl http://localhost:8080/api/get_iss_position
+curl "http://localhost:8080/api/iss-pass?lat=40.4168&lon=-3.7038"
+curl "http://localhost:8080/api/closest-pass?lat=40.4168&lon=-3.7038"
+curl "http://localhost:8080/api/trajectory?minutes=90&step=60"
+```
+
+### 3. Azure Functions Locally
+
+`api/local.settings.json` must point to the backend base URL, without `/api` at the end:
+
+```json
+"BACKEND_API_URL": "https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io"
+```
+
+Start the Functions host from the `api/` folder:
+
+```bash
+cd api
+func start --port 7071
+```
+
+Then test:
+
+```bash
+curl http://localhost:7071/api/get_iss_position
+```
+
+Expected route chain:
+
+```text
+localhost:7071/api/get_iss_position
+-> Function proxy
+-> cloud backend /api/get_iss_position
+```
+
+### 4. Static Web Apps CLI Locally
+
+Keep the Functions host running on port `7071`, then start the SWA CLI from the repository root:
+
+```bash
+swa start . --api-location http://localhost:7071
+```
+
+Then test:
+
+```bash
+curl http://localhost:4280/api/get_iss_position
+```
+
+Expected route chain:
+
+```text
+localhost:4280/api/get_iss_position
+-> SWA CLI
+-> localhost:7071/api/get_iss_position
+-> Function proxy
+-> cloud backend /api/get_iss_position
 ```
 
 

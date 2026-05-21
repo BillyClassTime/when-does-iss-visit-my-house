@@ -26,3 +26,4 @@ __pycache/
 
 # Archivos de configuración locales
 .env
+api/local.settings.json

@@ -1,0 +1,8 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "BACKEND_API_URL": "https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io"
+  }
+}

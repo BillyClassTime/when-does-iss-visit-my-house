@@ -1,87 +1,102 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>When Does the ISS Visit My House?</title>
 
     <!-- Leaflet -->
-    <link rel="stylesheet"
-          href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
     <!-- Your CSS -->
     <link rel="stylesheet" href="/static/style.css" />
-</head>
+  </head>
 
-<body>
-
-    <header class="hero">
+  <body>
+    <!-- MAP CARD -->
+    <section class="card">
+      <div class="map-card-header">
         <button class="home-button" onclick="goHome()">
-            <span class="home-icon">⌂</span>
-            <span>Home</span>
+          <span class="home-icon">⌂</span>
+          <span>Home</span>
         </button>
 
         <div class="logo-container">
-            <img src="/assets/iss.png" alt="ISS Logo" class="logo">
-            <p class="subtitle">
-                See when the ISS decides to fly over your place.
-            </p>
+          <img src="/assets/iss.png" alt="ISS Logo" class="logo" />
+          <p class="subtitle">
+            See when the ISS decides to fly over your place.
+          </p>
         </div>
-    </header>
+      </div>
 
-    <!-- MAP CARD -->
-    <section class="card">
-        <h2>Live ISS Position</h2>
+      <h2>Live ISS Position</h2>
 
+      <div class="map-shell">
         <div id="map"></div>
+        <div id="iss-status" class="iss-status">
+          Waiting for ISS telemetry...
+        </div>
+      </div>
     </section>
 
     <!-- LOCATION CARD -->
     <section class="card">
-        <h2>When does the ISS come to your house?</h2>
+      <h2>When does the ISS come to your house?</h2>
 
-        <p>
-            Click anywhere on the map to select a location,
-            or enter coordinates manually.
-        </p>
+      <p>
+        Click anywhere on the map to select a location, or enter coordinates
+        manually.
+      </p>
 
-        <div class="input-grid">
+      <div class="input-grid">
+        <label>
+          Latitude
+          <input id="lat" type="number" step="0.0001" />
+        </label>
 
-            <label>
-                Latitude
-                <input id="lat" type="number" step="0.0001">
-            </label>
+        <label>
+          Longitude
+          <input id="lon" type="number" step="0.0001" />
+        </label>
+      </div>
 
-            <label>
-                Longitude
-                <input id="lon" type="number" step="0.0001">
-            </label>
+      <button
+        class="primary-button"
+        onclick="getNextPass()"
+        title="Finds the next ISS pass that rises high enough above your horizon to be realistically visible."
+      >
+        🚀 When can I see it next?
+      </button>
 
-        </div>
+      <!-- PREDICTION BUTTON -->
+      <button
+        class="primary-button"
+        onclick="getClosestPass()"
+        title="Checks how close the ISS ground track gets to your selected location in the next 24 hours. This is about the path over Earth, not sky visibility."
+      >
+        🏠 Will it pass over my roof?
+      </button>
 
-        <button class="primary-button" onclick="getNextPass()">
-            🚀 When's the next fly-by?
-        </button>
+      <!-- GET TRAYECTORY BUTTON -->
+      <button
+        class="primary-button"
+        onclick="getTrajectory()"
+        title="Draws the predicted ISS ground track for the next 90 minutes."
+      >
+        🗺️ Where will it go next?
+      </button>
 
-        <!-- PREDICTION BUTTON -->
-        <button class="primary-button" onclick="getClosestPass()">🏠 Will it fly over my roof?</button>
-
-        <!-- GET TRAYECTORY BUTTON -->
-        <button class="primary-button" onclick="getTrajectory()">🗺️ Draw the orbit (next 90 point)</button>
-
-
-        <p id="result"></p>
+      <p id="result"></p>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <p>Built with Leaflet + Open Notify API</p>
+      <p>Built with Leaflet + Open Notify API</p>
     </footer>
 
     <!-- JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="/static/script.js"></script>
-
-</body>
+  </body>
 </html>

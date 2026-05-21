@@ -23,7 +23,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           app_location: "/"              # Busca el index.html en la raíz real
-          api_location: ""               
+          api_location: "api"            
           output_location: "/"           # Sube todo desde la raíz (incluyendo /static y /assets)
           skip_app_build: true           # Evita que Oryx intente compilar Python
           config_file_location: "/"      # Indica que el JSON de config está en la raíz

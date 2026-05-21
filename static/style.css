@@ -15,54 +15,6 @@ body {
     color: white;
 }
 
-/* HERO */
-
-.hero {
-    background-color: #1a2436; /* Azul más claro para que no se "coma" a la ISS */
-    display: flex;
-    align-items: center;       /* Centra todo verticalmente */
-    justify-content: flex-start; /* Alinea los bloques al principio (izquierda) */
-    padding: 20px 40px;        /* Espacio interno para que no pegue a los bordes */
-    gap: 30px;                 /* Separación entre el botón Home y el bloque de la ISS */
-    margin-bottom: 30px;
-}
-
-/* El botón Home a la izquierda */
-.home-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background-color: #ffffff;
-    color: #1a2436;
-    border: none;
-    border-radius: 30px;
-    font-weight: bold;
-    cursor: pointer;
-    flex-shrink: 0;            /* Evita que el botón se encoja */
-}
-
-/* El nuevo contenedor que junta la ISS y el texto en horizontal */
-.logo-container {
-    display: flex;
-    align-items: center;       /* Centra la nave con el texto en horizontal */
-    gap: 20px;                 /* Espacio entre el dibujo y la frase */
-}
-
-/* Ajustes de la ISS gamberra */
-.logo {
-    max-width: 180px;          /* Ajusta este tamaño si quieres la ISS más grande o pequeña */
-    height: auto;
-}
-
-/* El texto de al lado */
-.subtitle {
-    color: #ffffff;
-    font-size: 1.1rem;
-    margin: 0;                 /* Quita márgenes rebeldes para que se alinee bien */
-    opacity: 0.9;              /* Un pelín elegante */
-}
-
 /* CARDS */
 
 .card {
@@ -82,12 +34,69 @@ body {
         0 10px 30px rgba(0,0,0,0.25);
 }
 
+.map-card-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-width: 0;
+    margin-bottom: 18px;
+}
+
+.map-card-header .home-button {
+    flex: 0 0 auto;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-width: 0;
+}
+
+.logo {
+    width: 150px;
+    max-width: 28vw;
+    height: auto;
+    flex: 0 0 auto;
+}
+
+.subtitle {
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0;
+    opacity: 0.92;
+}
+
 /* MAP */
+
+.map-shell {
+    position: relative;
+}
 
 #map {
     height: 450px;
     border-radius: 16px;
     overflow: hidden;
+}
+
+.iss-status {
+    position: absolute;
+    z-index: 500;
+    top: 12px;
+    right: 12px;
+
+    padding: 8px 12px;
+    border-radius: 8px;
+
+    background: rgba(15, 23, 42, 0.86);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #e2e8f0;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+    pointer-events: none;
 }
 
 /* INPUTS */
@@ -149,8 +158,6 @@ input:focus {
 /* HOME */
 
 .home-button {
-    margin-top: 18px;
-
     background: white;
     color: #0f172a;
 }
@@ -217,9 +224,16 @@ footer {
 /* MOBILE */
 
 @media (max-width: 768px) {
+    .map-card-header {
+        gap: 14px;
+    }
 
-    .hero h1 {
-        font-size: 2.2rem;
+    .logo {
+        width: 105px;
+    }
+
+    .subtitle {
+        font-size: 0.92rem;
     }
 
     .input-grid {
