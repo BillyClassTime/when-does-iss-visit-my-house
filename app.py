@@ -19,7 +19,7 @@ def index():
 # ===========================
 #  LIVE ISS POSITION
 # ===========================
-@app.route("/get_iss_position")
+@app.route("/api/get_iss_position")
 def get_iss_position():
 
     # --- Primary API: WhereTheISS.at ---
@@ -73,7 +73,7 @@ def get_iss_position():
 # ===========================
 #  NEXT PASS (A + B)
 # ===========================
-@app.route("/iss-pass")
+@app.route("/api/iss-pass")
 def iss_pass():
     lat = request.args.get("lat", type=float)
     lon = request.args.get("lon", type=float)
@@ -153,7 +153,7 @@ def iss_pass():
 # ===========================
 #  NEXT PASS ISS PREDICTION
 # ===========================
-@app.route("/closest-pass")
+@app.route("/api/closest-pass")
 def closest_pass():
     lat = request.args.get("lat", type=float)
     lon = request.args.get("lon", type=float)
@@ -217,7 +217,7 @@ def closest_pass():
     return jsonify(result)
 
 
-@app.route("/trajectory")
+@app.route("/api/trajectory")
 def trajectory():
     minutes = request.args.get("minutes", default=90, type=int)
     step = request.args.get("step", default=60, type=int)

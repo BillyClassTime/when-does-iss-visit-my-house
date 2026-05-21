@@ -93,28 +93,28 @@ You can test the live container app endpoints directly using `curl`:
 #### 1. Real-Time ISS Position
 Returns the current latitude, longitude, and an orbital math note.
 ```bash
-curl https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io/get_iss_position
+curl https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io/api/get_iss_position
 ```
 
 #### 2. Next ISS Pass Prediction
 Calculates the exact time and duration of the next visible pass for a specific location.
 
 ```bash
-curl "https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io/iss-pass?lat=40.4168&lon=-3.7038"
+curl "https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io/api/iss-pass?lat=40.4168&lon=-3.7038"
 ```
 
 #### 3. Closest Approach Prediction
 Computes the precise moment and minimum distance (in km) when the ISS is nearest to you.
 
 ```bash
-curl "https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io/closest-pass?lat=40.4168&lon=-3.7038"
+curl "https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io/api/closest-pass?lat=40.4168&lon=-3.7038"
 ```
 
 #### 4. Future Orbit Trajectory
 Generates an array of geographical points mapping out the complete orbital path for the next 90 minutes.
 
 ```bash
-curl "https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io/trajectory?minutes=90&step=60"
+curl "https://ca-iss-backend-usa.orangeriver-813e879f.eastus.azurecontainerapps.io/api/trajectory?minutes=90&step=60"
 ```
 
 
